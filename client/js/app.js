@@ -11,4 +11,6 @@ angular.module("pickUpLineApp", ["ui.router", "pickUpLineApp.controllers","ngSto
 				templateUrl: "/templates/logreg.html",
 				controller: "logregCtrl"
 			})
+
+			$urlRouterProvider.otherwise("/")
 	})

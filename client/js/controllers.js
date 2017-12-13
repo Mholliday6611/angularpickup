@@ -1,5 +1,5 @@
-angular.module("pickUpLineApp.controllers", ["ngStorage"])
-	.controller("getPickUpLineCtrl", function($scope, $http){
+angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"])
+	.controller("getPickUpLineCtrl", function($scope, $http, creds){
 		$scope.getLine = function(){
 			$http.get("/api/getLines")
 				.then(function(response){
@@ -7,6 +7,22 @@ angular.module("pickUpLineApp.controllers", ["ngStorage"])
 					$scope.line = response.data
 				})
 			}
+		$scope.favorite = function(){
+			console.log(creds)
+			$http.put("/api/favorite", {favorite: $scope.line.line}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} } )
+			.then(function(response){
+				console.log("cool")
+			}).catch(function(response){
+				console.log(response)
+			})
+		}
+		$scope.submitLine = function(){
+			$http.post("/api/pickup", $scope.newLine, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} })
+			.then(function(response){
+				$scope.msg = response.data
+				$scope.newLine.line = ""
+			})
+		}
 	})
 	.controller("logregCtrl", function($scope, $state, $http, $localStorage){
 		$scope.register = function(){

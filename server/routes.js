@@ -51,32 +51,44 @@ module.exports = function(app, passport){
 		res.send(req.user)
 	}),
 
-	app.post("/api/pickup", function(req, res){
-		if(req.user){
-			var name = req.user.name
-			return name
-		}
+	app.post("/api/pickup", passport.authenticate('jwt', {session:false}), function(req, res){
+		console.log(req.body.line)
 		new Line({
-			author: name || "Unknown",
+			author: req.user.username || " ",
 			line: req.body.line
 		}).save(function(err){
 			if(err){
-				res.send("Ooops!")
+				res.send("Ooops! You need to sign in")
 			}else{
 				res.send("Thanks for Your Contribution!")
 			}
 		})
 	}),
-	app.put("/api/favorite/:id",function(req, res){
-		User.findByIdAndUpdate(req.query.id, {$addToSet: {"favorites":req.body.favorite}},{new:true}, function(err,doc){
-            console.log(doc);
-            if(err){
-                res.send("update fail");
-            }else {
-                res.send("update success");
-            }
-        })
+	app.put("/api/favorite", passport.authenticate('jwt', {session:false}), function(req, res){
+		User.findByIdAndUpdate(req.user.id, {$addToSet: {"favorites":req.body.favorite}},{new:true}, function(err,doc){
+			if(err){
+				res.send("Update failed")
+			}else {
+				res.send("update success")
+			}
+		})
 	}),
+	// app.put("/api/favorite",function(req, res){
+	// 	jwt.verify(req.get("token"),process.env.pickupToken, function(err,decoded){
+	// 		if(err){
+	// 			res.send("oops!")
+	// 		}else{
+	// 			User.findByIdAndUpdate(decoded.id, {$addToSet: {"favorites":req.body.favorite}},{new:true}, function(err,doc){
+	// 				console.log(doc);
+	// 				if(err){
+	// 					res.send("update fail");
+	// 				}else {
+	// 					res.send("update success");
+	// 				}
+	// 			})
+	// 		}
+	// 	})
+	// }),
 	app.get("/api/getLines", function(req,res){
 		Line.count({}, function(err, count){
 			var random = Math.floor(Math.random() * count)

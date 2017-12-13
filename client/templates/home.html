@@ -1,7 +1,21 @@
 
 <div>
 	<h1>Grab a pick up line</h1>
-	{{line.author}}
 	{{line.line}}
+	<br>
+	-{{line.author}}
 	<button ng-click="getLine()">GET A RANDOM LINE</button>
+	<button ng-click="favorite()">FAVORITE THIS LINE</button>
+</div>
+{{msg}}
+<div>
+	<form id="newLine" method="post" ng-submit="submitLine()">
+		<div>
+			<div>
+				<label for="username">Enter New Pickup Line</label>
+				<input class="form-control" type="text" ng-model="newLine.line">
+				<br>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</div>	
 </div>
