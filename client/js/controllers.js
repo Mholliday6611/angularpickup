@@ -23,6 +23,14 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 				$scope.newLine.line = ""
 			})
 		}
+		$scope.flag = function(){
+			$http.put("/api/flag", {id:$scope.line._id}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} } )
+			.then(function(response){
+				console.log(response.data)
+			}).catch(function(response){
+				console.log(response.data)
+			})
+		}
 	})
 	.controller("logregCtrl", function($scope, $state, $http, $localStorage){
 		$scope.register = function(){

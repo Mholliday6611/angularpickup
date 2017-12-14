@@ -3,7 +3,7 @@
  var line = new mongoose.Schema({
  	author: String,
  	line: String,
- 	flag: {type:Number,default:0}
+ 	flaggers: []
  })
 
  var user = new mongoose.Schema({

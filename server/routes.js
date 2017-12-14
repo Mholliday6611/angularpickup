@@ -64,6 +64,21 @@ module.exports = function(app, passport){
 			}
 		})
 	}),
+	app.put("/api/flag", passport.authenticate('jwt', {session:false}), function(req, res){
+		console.log(req.body)
+		Line.findOne({_id : req.body.id},function(err,line){
+			for(i=0;i<line.flaggers.length;i++){
+				if(line.flaggers[i]==req.user.id){
+					res.json({msg: "Already flagged"})
+					return
+				}
+			};
+			line.update({$addToSet: {"flaggers": req.user.id}}).exec(function(err, result){
+				res.send("You flagged it!")
+			})
+			
+		})
+	}),
 	app.put("/api/favorite", passport.authenticate('jwt', {session:false}), function(req, res){
 		User.findByIdAndUpdate(req.user.id, {$addToSet: {"favorites":req.body.favorite}},{new:true}, function(err,doc){
 			if(err){

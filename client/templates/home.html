@@ -1,4 +1,4 @@
-
+<a ui-sref="logreg">Register or Login</a>
 <div>
 	<h1>Grab a pick up line</h1>
 	{{line.line}}
@@ -6,6 +6,7 @@
 	-{{line.author}}
 	<button ng-click="getLine()">GET A RANDOM LINE</button>
 	<button ng-click="favorite()">FAVORITE THIS LINE</button>
+	<button ng-click="flag()">FLAG THIS LINE</button>
 </div>
 {{msg}}
 <div>
