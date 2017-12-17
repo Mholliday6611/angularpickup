@@ -45,11 +45,23 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 		$scope.login = function(){
 			$http.post("/api/login", $scope.log, {headers : { 'Content-Type' : 'application/json'} })
 			.then(function(response){
-				console.log(response.data)
-				$localStorage.session = {user: response.data.user, token: response.data.token}
-				$state.go("index")
-			}, function(response){
+				if(response.data.message == "ok"){
+					console.log(response.data)
+					$localStorage.session = {user: response.data.user, token: response.data.token}
+					$state.go("index")
+				}else{
+					$scope.msg2 = response.data.msg
+				}	
+			}).catch(function(response){
 				$scope.msg2 = "oops!"
 			})
 		}
+	})
+	.controller("faveCtrl", function($scope, $http, creds){
+		$http.get("/api/getFavorites", {headers : {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token}})
+		.then(function(response){
+			$scope.faves = response.data.favorites
+		}).catch(function(response){
+			console.log("You suck")
+		})
 	})

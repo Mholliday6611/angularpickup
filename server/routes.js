@@ -5,6 +5,13 @@ var bcrypt = require("bcrypt-nodejs");
 var jwt = require('jsonwebtoken');
 Line = db.Line
 User = db.User
+var schedule = require("node-schedule")
+
+var job = schedule.scheduleJob('10 4 * * *', function(){
+	User.update({}, {$set:{postMade: 0}},{multi:true}, function(){
+		console.log("Post reset")
+	})
+});
 
 module.exports = function(app, passport){
 	app.get("/", function(req,res){
@@ -32,18 +39,18 @@ module.exports = function(app, passport){
 	app.post("/api/login", function(req,res){
 		User.findOne({ username: req.body.username}, function(err,user) {
 			if(err){
-				res.json({msg: "Error"});
+				return res.json({msg: "Error"});
 			}
 			if (!user) {
-				res.json({msg: "user doesnt exist"});
+				return res.json({msg: "user doesnt exist"});
 			}
 			if (!bcrypt.compareSync(req.body.password, user.password)){
-				res.json({msg: "incorrect username/password"});
+				return res.json({msg: "incorrect username/password"});
 			}
 			if (user && bcrypt.compareSync(req.body.password, user.password)){
 				var payload = {id: user.id};
 				var token = jwt.sign(payload, process.env.pickupToken)
-				res.json({message: "ok",user:user.username, token: token})
+				return res.json({message: "ok",user:user.username, token: token})
 			}
 		});
 	}),
@@ -53,16 +60,23 @@ module.exports = function(app, passport){
 
 	app.post("/api/pickup", passport.authenticate('jwt', {session:false}), function(req, res){
 		console.log(req.body.line)
-		new Line({
+		if(req.user.postMade >= 5){
+			res.send("Can't make anymore posts today")
+		}else{
+			new Line({
 			author: req.user.username || " ",
 			line: req.body.line
 		}).save(function(err){
 			if(err){
 				res.send("Ooops! You need to sign in")
 			}else{
+				req.user.postMade += 1
+				req.user.save()
 				res.send("Thanks for Your Contribution!")
 			}
 		})
+	}
+		
 	}),
 	app.put("/api/flag", passport.authenticate('jwt', {session:false}), function(req, res){
 		console.log(req.body)
@@ -77,6 +91,11 @@ module.exports = function(app, passport){
 				res.send("You flagged it!")
 			})
 			
+		})
+	}),
+	app.get("/api/getFavorites",passport.authenticate("jwt", {session:false}), function(req, res){
+		User.findOne({_id:req.user._id}, function(err, user){
+			res.json({favorites:user.favorites})
 		})
 	}),
 	app.put("/api/favorite", passport.authenticate('jwt', {session:false}), function(req, res){

@@ -11,6 +11,11 @@ angular.module("pickUpLineApp", ["ui.router", "pickUpLineApp.controllers","ngSto
 				templateUrl: "/templates/logreg.html",
 				controller: "logregCtrl"
 			})
+			.state("favorite",{
+				url:"/favorite",
+				templateUrl:"/templates/favorites.html",
+				controller:"faveCtrl"
+			})
 
 			$urlRouterProvider.otherwise("/")
 	})
