@@ -1,5 +1,10 @@
 angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"])
-	.controller("getPickUpLineCtrl", function($scope, $http, creds){
+	.controller("getPickUpLineCtrl", function($scope, $http, creds, $localStorage){
+		if(creds()== null){
+			$scope.currentUser = null
+		}else{
+			$scope.currentUser = creds().username
+		}
 		$scope.getLine = function(){
 			$http.get("/api/getLines")
 				.then(function(response){
@@ -8,8 +13,8 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 				})
 			}
 		$scope.favorite = function(){
-			console.log(creds)
-			$http.put("/api/favorite", {favorite: $scope.line.line}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} } )
+			console.log(creds())
+			$http.put("/api/favorite", {favorite: $scope.line.line}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds().token} } )
 			.then(function(response){
 				console.log("cool")
 			}).catch(function(response){
@@ -17,19 +22,23 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 			})
 		}
 		$scope.submitLine = function(){
-			$http.post("/api/pickup", $scope.newLine, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} })
+			$http.post("/api/pickup", $scope.newLine, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds().token} })
 			.then(function(response){
 				$scope.msg = response.data
 				$scope.newLine.line = ""
 			})
 		}
 		$scope.flag = function(){
-			$http.put("/api/flag", {id:$scope.line._id}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token} } )
+			$http.put("/api/flag", {id:$scope.line._id}, {headers: {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds().token} } )
 			.then(function(response){
 				console.log(response.data)
 			}).catch(function(response){
 				console.log(response.data)
 			})
+		}
+		$scope.logout = function(){
+			delete $localStorage.session
+			$scope.currentUser = null
 		}
 	})
 	.controller("logregCtrl", function($scope, $state, $http, $localStorage){
@@ -58,7 +67,7 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 		}
 	})
 	.controller("faveCtrl", function($scope, $http, creds){
-		$http.get("/api/getFavorites", {headers : {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds.token}})
+		$http.get("/api/getFavorites", {headers : {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds().token}})
 		.then(function(response){
 			$scope.faves = response.data.favorites
 		}).catch(function(response){

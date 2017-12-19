@@ -70,7 +70,7 @@ module.exports = function(app, passport){
 			if(err){
 				res.send("Ooops! You need to sign in")
 			}else{
-				req.user.postMade += 1
+				req.user.postMade++
 				req.user.save()
 				res.send("Thanks for Your Contribution!")
 			}

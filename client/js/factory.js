@@ -1,8 +1,15 @@
 angular.module("pickUpLineApp.factory", ["ngStorage"])
 .factory("creds", function($localStorage){
-	var creds = {
-		username: $localStorage.session.user,
-		token: $localStorage.session.token
+	var creds = function(){
+		if($localStorage.session){
+			return {
+				username: $localStorage.session.user,
+				token: $localStorage.session.token
+			}
+		}else{
+			return null
+		}
+		
 	};
 	return creds
 })
