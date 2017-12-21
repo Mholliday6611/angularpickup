@@ -7,6 +7,7 @@ Line = db.Line
 User = db.User
 var schedule = require("node-schedule")
 
+
 var job = schedule.scheduleJob('10 4 * * *', function(){
 	User.update({}, {$set:{postMade: 0}},{multi:true}, function(){
 		console.log("Post reset")
