@@ -1,16 +1,38 @@
-<a ui-sref="logreg">Register or Login</a>
-<button ng-click="logout()">Logout</button>
-HELLO {{currentUser}}
+<div class="container blue">
+<nav class="level">
+	<p class="level-item has-text-centered">
+    <img src="http://users.ox.ac.uk/~oums0670/images/logo.png" alt="Cupid's Arrow" style="height: 100px;">
+  </p>
+	<div class="level-right">
+    <div class="level-item">
+	<a class="button is-info" ui-sref="logreg">Register or Login</a>
+		</div>
+		<div class="level-item">
+	<button class="button is-link" ng-click="logout()">Logout</button>
+		</div>
+</nav>
+
+<h1> HELLO {{currentUser}} </h1>
+
 <div>
-	<h1>Grab a pick up line</h1>
+	<h2>Grab a pick up line</h2>
 	{{line.line}}
 	<br>
 	-{{line.author}}
-	<button ng-click="getLine()">GET A RANDOM LINE</button>
-	<button ng-click="favorite()">FAVORITE THIS LINE</button>
-	<button ng-click="flag()">FLAG THIS LINE</button>
+	<div class="field is-grouped">
+	<button class="button is-info" ng-click="getLine()">GET A RANDOM LINE</button>
+	<button class="button is-success" ng-click="favorite()">FAVORITE THIS LINE</button>
+	<button class="button is-warning" ng-click="flag()">FLAG THIS LINE</button>
+	</div>
 </div>
+<div class="container">
+
 {{msg}}
+
+<div class="container">
+<p>Add to our growing database of pickup lines!</p>
+</div>
+
 <div>
 	<form id="newLine" method="post" ng-submit="submitLine()">
 		<div>
@@ -20,5 +42,19 @@ HELLO {{currentUser}}
 				<br>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
-		</div>	
+		</div>
+</div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Cupid's Arrow</strong> by <a href="#">Malcolm Holliday</a>. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+      </p>
+    </div>
+  </div>
+</footer>
 </div>
