@@ -24,5 +24,5 @@ app.use(bodyParser.urlencoded({
 toks(passport)
 routes(app, passport)
 app.listen(process.env.PORT || 8080)
-mongoose.connect("mongodb://localhost/pickupline");
-// mongoose.connect(process.env.QUICK_DB_URL);
+// mongoose.connect("mongodb://localhost/pickupline");
+mongoose.connect(process.env.QUICK_DB_URL);
