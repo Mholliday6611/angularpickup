@@ -1,9 +1,9 @@
 angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"])
-	.controller("getPickUpLineCtrl", function($scope, $http, creds, $localStorage){
+	.controller("getPickUpLineCtrl", function($scope,$rootScope, $http, creds, $localStorage){
 		if(creds()== null){
-			$scope.currentUser = null
+			$rootScope.currentUser = null
 		}else{
-			$scope.currentUser = creds().username
+			$rootScope.currentUser = creds().username
 		}
 		$scope.getLine = function(){
 			$http.get("/api/getLines")
@@ -36,9 +36,12 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 				console.log(response.data)
 			})
 		}
+	})
+	.controller("navCtrl", function($scope,$rootScope, $localStorage, creds){
+
 		$scope.logout = function(){
 			delete $localStorage.session
-			$scope.currentUser = null
+			$rootScope.currentUser = null
 		}
 	})
 	.controller("logregCtrl", function($scope, $state, $http, $localStorage){
@@ -66,6 +69,7 @@ angular.module("pickUpLineApp.controllers", ["ngStorage","pickUpLineApp.factory"
 			})
 		}
 	})
+
 	.controller("faveCtrl", function($scope, $http, creds){
 		$http.get("/api/getFavorites", {headers : {'Content-Type' : 'application/json', 'Authorization' : "bearer " + creds().token}})
 		.then(function(response){

@@ -1,0 +1,28 @@
+input.input{
+	width: 50%;
+}
+html{
+	background-color: #f4ece1;
+}
+.form{
+	margin-top: 40px;
+	letter-spacing: 3px;
+	font-family: 'Lalezar', cursive;
+}
+
+.button{
+	background-color: #E82052;
+}
+.stretchedToMargin {
+  display: block;
+  position:absolute;
+  height:auto;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
+  padding-bottom: 10px;
+}
+.main{
+	margin-top: 70px
+}

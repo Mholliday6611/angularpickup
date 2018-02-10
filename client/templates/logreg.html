@@ -1,33 +1,43 @@
-	<h1>REGISTER </h1>
-	<form id="register" method="post" ng-submit="register()">
-		<div class="row">
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input class="form-control" type="text" ng-model="newUser.username" id="username">
-				<br>
-				<label for="username">Email</label>
-				<input class="form-control" type="email" ng-model="newUser.email" id="email">
-				<br>
-				<label for="password">Password</label>
-				<input class="form-control" type="password" ng-model="newUser.password" id="password">
-				<br>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</div>
+	<div class="columns form">
+		<div class="column">
+			<center>
+			<h1 class="title">REGISTER </h1>
+			<form id="register" method="post" ng-submit="register()">
+				<div>
+					<div class="form-group">
+						<label class="label" for="username">Username</label>
+						<input class="input is-rounded" type="text" ng-model="newUser.username" id="username">
+						<br>
+						<label class="label" for="username">Email</label>
+						<input class="input is-rounded" type="email" ng-model="newUser.email" id="email">
+						<br>
+						<label class="label" for="password">Password</label>
+						<input class="input is-rounded" type="password" ng-model="newUser.password" id="password">
+						<br>
+						<button style="margin-top: 10px" type="submit" class="button is-large btn btn-default">Submit</button>
+					</div>
+				</div>
+			</form>
+			</center>
 		</div>
-	</form>
-	{{msg}}
-	<h1>LOGIN</h1>	
-	<form id="login" method="post" ng-submit="login()">
-		<div class="row">
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input class="form-control" type="text" ng-model="log.username" id="username">
-				<br>
-				<label for="password">Password</label>
-				<input class="form-control" type="password" ng-model="log.password" id="password">
-				<br>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</div>
+		{{msg}}
+		<div class="column">
+			<center>
+			<h1 class="title">LOGIN</h1>	
+			<form id="login" method="post" ng-submit="login()">
+				<div>
+					<div class="form-group">
+						<label class="label" for="username">Username</label>
+						<input class="input is-rounded" type="text" ng-model="log.username" id="username">
+						<br>
+						<label class="label" for="password">Password</label>
+						<input class="input is-rounded" type="password" ng-model="log.password" id="password">
+						<br>
+						<button style="margin-top: 10px" type="submit" class="button is-large btn btn-default">Submit</button>
+					</div>
+				</div>
+			</form>
+			</center>
 		</div>
-	</form>
+	</div>
 	{{msg2}}

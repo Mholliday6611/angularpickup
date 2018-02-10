@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="pickUpLineApp">
+<html class="stretchedToMargin" ng-app="pickUpLineApp">
 	<head>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,8 +10,31 @@
         <script src="client/js/app.js"></script>
         <script src="client/js/controllers.js"></script>
         <script src="client/js/factory.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+        <link rel="stylesheet" type="text/css" href="templates/styles.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Amiko|Arima+Madurai|Farsan|Lalezar|Mogra|Rakkas|Rasa|Shrikhand|Suez+One|Yatra+One" rel="stylesheet">
 	</head>
-	<body>
-		<div ui-view></div>
+	<body class="has-navbar-fixed-bottom" >
+        <nav ng-controller="navCtrl" style="background-color: #141D26" class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a ui-sref="index">
+              <img src="templates/heartLogo.png" alt="Quick Up Lines" style="width: 50px;">
+            </a>
+          </div>
+          <div class="navbar-end">
+            <h1 class="has-text-white navbar-item">{{currentUser}}</h1>
+            <div class="navbar-item field is-grouped">
+                <a ng-show="!currentUser" class="button control" ui-sref="logreg">Register or Login</a>
+                <button ng-show="currentUser" class="button control" ui-sref="favorite">Favorites</button>
+                <button ng-show="currentUser" class="button control" ng-click="logout()">Logout</button>
+            </div>
+          </div>
+        </nav>
+
+		  <div ui-view></div>
+
+        <footer class="navbar is-fixed-bottom" style="background-color: #141D26">
+        </footer>
 	</body>
 </html>

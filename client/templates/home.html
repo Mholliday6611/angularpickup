@@ -1,28 +1,25 @@
-<div class="container blue">
-<nav class="level">
-	<p class="level-item has-text-centered">
-    <img src="http://users.ox.ac.uk/~oums0670/images/logo.png" alt="Cupid's Arrow" style="height: 100px;">
-  </p>
-	<div class="level-right">
-    <div class="level-item">
-	<a class="button is-info" ui-sref="logreg">Register or Login</a>
-		</div>
-		<div class="level-item">
-	<button class="button is-link" ng-click="logout()">Logout</button>
-		</div>
-</nav>
-
-<h1> HELLO {{currentUser}} </h1>
+<div class="container main">
 
 <div>
-	<h2>Grab a pick up line</h2>
-	{{line.line}}
-	<br>
-	-{{line.author}}
-	<div class="field is-grouped">
-	<button class="button is-info" ng-click="getLine()">GET A RANDOM LINE</button>
-	<button class="button is-success" ng-click="favorite()">FAVORITE THIS LINE</button>
-	<button class="button is-warning" ng-click="flag()">FLAG THIS LINE</button>
+	<center><h2 style="font-family: 'Shrikhand';" class="title">QUICK UP LINES!</h2></center>
+	<div style="height: 300px;width: 500px; margin:0 auto;position: relative; background-color: #7E8F9C" class="box">
+
+		<div style="height: 80%; color: white">
+			<p ng-show="line" class="title">{{line.line}}</p>
+			<br>
+			<p ng-show="line"><span class="subtitle is-4">-{{line.author}}</span></p>
+		</div>
+
+		<div class="level">
+			<div class="field level-left">
+				<button class="button level-item" ng-click="getLine()">GET A RANDOM LINE</button>
+			</div>
+			<div class="field level-right">
+				<a style="margin-bottom: 8px" class="icon has-text-white is-large level-item" ng-click="favorite()"><i class="fas fa-2x fa-heart"></i></a>
+				<a style="margin-bottom: 8px" class="icon has-text-white is-large level-item" ng-click="flag()"><i class="far fa-2x fa-flag"></i></a>
+			</div>
+		</div>
+
 	</div>
 </div>
 <div class="container">
@@ -30,31 +27,20 @@
 {{msg}}
 
 <div class="container">
-<p>Add to our growing database of pickup lines!</p>
-</div>
+<center>
+	<p>Add to our growing database of pickup lines!</p>
 
-<div>
-	<form id="newLine" method="post" ng-submit="submitLine()">
-		<div>
+	<div>
+		<form id="newLine" class="form" method="post" ng-submit="submitLine()">
 			<div>
-				<label for="username">Enter New Pickup Line</label>
-				<input class="form-control" type="text" ng-model="newLine.line">
-				<br>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<div>
+					<input class="input control" placeholder="Enter New Pickup Line" type="text" ng-model="newLine.line">
+					<input type="submit" class="button control btn-default"/>
 			</div>
-		</div>
-</div>
+		</form>
+	</div>
+</center>
 </div>
 
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Cupid's Arrow</strong> by <a href="#">Malcolm Holliday</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-      </p>
-    </div>
-  </div>
-</footer>
+
 </div>

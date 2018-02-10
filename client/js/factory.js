@@ -4,10 +4,13 @@ angular.module("pickUpLineApp.factory", ["ngStorage"])
 		if($localStorage.session){
 			return {
 				username: $localStorage.session.user,
-				token: $localStorage.session.token
+				token: $localStorage.session.token,
+				loggedIn: true
 			}
 		}else{
-			return null
+			return {
+				loggedIn:false
+			}
 		}
 		
 	};
