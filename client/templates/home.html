@@ -24,10 +24,9 @@
 </div>
 <div class="container">
 
-{{msg}}
-
-<div class="container">
+<div ng-show="currentUser" class="container">
 <center>
+	{{msg}}
 	<p>Add to our growing database of pickup lines!</p>
 
 	<div>
@@ -40,6 +39,9 @@
 		</form>
 	</div>
 </center>
+</div>
+<div ng-show="!currentUser">
+	<center><h1 class="title">Sign In to Submit a pick up line!</h1></center>
 </div>
 
 
